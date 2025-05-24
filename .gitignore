@@ -1,0 +1,46 @@
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+# Thư mục build & output
+bin/
+obj/
+out/
+
+# Gói cài đặt
+/packages/
+node_modules/
+
+# Tệp tạm của IDE
+riderModule.iml
+/.idea/
+/.vscode/
+/.vs/
+project.lock.json
+
+# Bộ nhớ cache của JetBrains Rider & ReSharper
+/_ReSharper.Caches/
+/resharper.xml
+*.suo
+*.user
+*.sln.ide
+
+# Tệp log và debug
+*.log
+*.cache
+*.swp
+
+# Cấu hình môi trường
+.env
+.env.local
+
+# Tệp xuất phát sinh từ hệ thống
+Thumbs.db
+.DS_Store
+
+# Khóa SSH riêng tư (KHÔNG NÊN ĐƯA VÀO GIT)
+*.pem
+*.key
+id_rsa
+id_rsa.pub
