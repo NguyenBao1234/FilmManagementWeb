@@ -1,8 +1,8 @@
 @page
-@model FilmManagementWeb.Pages.Identity.Account.Register
+@model FilmManagementWeb.Pages.Identity.Account.Login
 
 @{
-    ViewData["Title"] = "Đăng Ký";
+    ViewData["Title"] = "Đăng Nhập";
     Layout = null;
 }
 <head>
@@ -11,17 +11,17 @@
 </head>
 
 <div class="position-relative d-flex justify-content-center align-items-center vh-100 overflow-hidden">
-
+    @* Youtube Video BG *@
     <div class="position-absolute top-0 start-0 w-100 h-100" style="z-index: 0; pointer-events: none; overflow: hidden;">
         <div id="yt-bg" style="width: 100vw; height: 56.25vw;"></div>
     </div>
-
+    
     <div class="position-absolute top-0 start-0 w-100 h-100" id="overlayYTB" style="z-index: 1;transition: opacity 2s ease;opacity: 1;pointer-events: none;overflow: hidden;">
         <img src="/image/FamousFilms.jpg"alt="Ảnh phủ"style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
     </div>
     
     <div class="card shadow-lg p-4" style="max-width: 680px; width: 100%; border-radius: 1rem; background-color: rgba(255,255,255,0.9);z-index: 1">
-        <h1 class="text-center mb-4">Đăng ký</h1>
+        <h1 class="text-center mb-4">Đăng nhập</h1>
         @if (!string.IsNullOrEmpty(Model.Message))
         {
             <div class="alert alert-danger">@Model.Message</div>
@@ -34,30 +34,28 @@
             </div>
 
             <div class="form-floating mb-3">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Mật khẩu"/>
+                <input asp-for="Input.Password" class="form-control" autocomplete="off" aria-required="true" placeholder="Mật khẩu"/>
                 <label asp-for="Input.Password">Mật khẩu</label>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
-
-            <div class="form-floating mb-3">
-                <input asp-for="Input.ConfirmPassword" class="form-control" type="password" aria-required="true" placeholder="Confirm Password"/>
-                <label asp-for="Input.ConfirmPassword">Xác nhận mật khẩu</label>
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            <div>
+                <input asp-for="Input.RememberMe" class="form-check-input" />
+                <label>Ghi nhớ đăng nhập</label>
             </div>
-
             <div class="d-flex justify-content-between align-items-center gap-2 mt-4">
-                <!--Back -->
+                <!-- Back -->
                 <button type="button" onclick="history.back()" class="btn btn-outline-dark btn-lg w-50">
                     ← Back
                 </button>
-                <!--Register -->
+                @* Login *@
                 <button type="submit" class="btn btn-dark btn-lg w-50">
-                    Đăng ký
+                    Đăng nập
                 </button>
             </div>
         </form>
     </div>
 </div>
+
 
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
@@ -84,7 +82,7 @@
     function onStateChangeYTBPlayer(event) {
         if (event.data === YT.PlayerState.PLAYING) {
             const overlay = document.getElementById('overlayYTB');
-
+            
             setTimeout(() => { overlay.style.opacity = "0";},3000);
         }
     }
