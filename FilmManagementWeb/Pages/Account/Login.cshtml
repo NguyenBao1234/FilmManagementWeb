@@ -19,24 +19,22 @@
     <div class="position-absolute top-0 start-0 w-100 h-100" id="overlayYTB" style="z-index: 1;transition: opacity 2s ease;opacity: 1;pointer-events: none;overflow: hidden;">
         <img src="/image/FamousFilms.jpg"alt="Ảnh phủ"style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
     </div>
-    
     <div class="card shadow-lg p-4" style="max-width: 680px; width: 100%; border-radius: 1rem; background-color: rgba(255,255,255,0.9);z-index: 1">
         <h1 class="text-center mb-4">Đăng nhập</h1>
-        @if (!string.IsNullOrEmpty(Model.Message))
-        {
-            <div class="alert alert-danger">@Model.Message</div>
-        }
-        <form method="post">
+        
+        <div id="messageAlert" class = "alert alert-danger d-none">@Model.Message</div>    
+        
+        <form id="loginForm" method="post">
             <div class="form-floating mb-3">
                 <input asp-for="Input.Email" class="form-control" autocomplete="off" aria-required="false" placeholder="name@example.com"/>
                 <label asp-for="Input.Email">Email</label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                <span id="emailValidation" class="text-danger"></span>
             </div>
 
             <div class="form-floating mb-3">
                 <input asp-for="Input.Password" class="form-control" autocomplete="off" aria-required="true" placeholder="Mật khẩu"/>
                 <label asp-for="Input.Password">Mật khẩu</label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                <span id="passwordValidation" class="text-danger"></span>
             </div>
             <div>
                 <input asp-for="Input.RememberMe" class="form-check-input" />
@@ -56,6 +54,33 @@
     </div>
 </div>
 
+<script>
+    document.getElementById("loginForm").addEventListener("submit", async function (e) 
+    {
+        e.preventDefault(); // Ngăn reload trang
+        
+        const form = e.target;
+        const formData = new FormData(form);
+
+        const response = await fetch(form.action, {method: "POST",body: formData});
+//lấy lệnh thủ công.
+        const result = await response.json();
+        const alertMessage = document.getElementById("messageAlert");
+        alertMessage.classList.add("d-none");
+        if (result.success) window.location.href = result.redirectUrl;
+        else if (result.message && result.message.trim() !== "")
+        {
+            alertMessage.textContent = result.message;
+            alertMessage.classList.remove("d-none");
+        }
+
+        if (result.errors) {
+            if (result.errors["Input.Email"]) document.getElementById("emailValidation").textContent = result.errors["Input.Email"][0];
+            if (result.errors["Input.Password"]) document.getElementById("passwordValidation").textContent = result.errors["Input.Password"][0];
+        }
+        
+    });
+</script>
 
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
