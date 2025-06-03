@@ -1,0 +1,57 @@
+﻿@page
+@model FilmManagementWeb.Pages.Movies.EditModel
+@{
+}
+<br />
+<h2>Edit Movie Information</h2>
+
+@if (Model.Message.Length > 0)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@Model.Message</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+<form method="post">
+    <input type="hidden" name="MovieId" value="@Model.MovieInfo.MovieId" />
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Tên phim</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="Title" value="@Model.MovieInfo.Title">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Mô tả</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="Description" value="@Model.MovieInfo.Description">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Năm ra mắt</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="ReleaseYear" value="@Model.MovieInfo.ReleaseYear">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">ID thể loại</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="GenreId" value="@Model.MovieInfo.GenreId">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">ImageUrl</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="ImageUrl" value="@Model.MovieInfo.ImageUrl">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-sm-3 d-grid">
+            <button type="submit" class="btn btn-primary">Edit</button>
+        </div>
+        <div class="col-sm-3 d-grid">
+            <a class="btn btn-outline-primary" href="/Movies" role="button">Cancel</a>
+        </div>
+    </div>
+</form>
