@@ -43,7 +43,17 @@
                     </td>
                     <td class="fw-bold">@movie.Title</td>
                     <td>@movie.ReleaseYear</td>
-                    <td>@movie.GenreId</td>
+                <td>
+                    @if (movie.GenreNames != null && movie.GenreNames.Count > 0)
+                    {
+                        @string.Join(", ", movie.GenreNames)
+                    }
+                    else
+                    {
+                        <span class="text-muted">Không có thể loại</span>
+                    }
+                </td>
+
                     <td></td>
                     <td>
                         <span class="text-warning fw-bold">5★</span> 
