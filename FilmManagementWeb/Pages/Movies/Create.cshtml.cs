@@ -24,12 +24,12 @@ namespace FilmManagementWeb.Pages.Movies
             MovieInfo.Title = Request.Form["Title"].ToString() ?? string.Empty;
             MovieInfo.Description = Request.Form["Description"].ToString() ?? string.Empty;
             MovieInfo.ReleaseYear = Request.Form["ReleaseYear"].ToString() ?? string.Empty;
-            MovieInfo.GenreId = Request.Form["GenreId"].ToString() ?? string.Empty;
+           
             MovieInfo.ImageUrl = Request.Form["ImageUrl"].ToString() ?? string.Empty;
 
             if (string.IsNullOrEmpty(MovieInfo.Title) ||
                 string.IsNullOrEmpty(MovieInfo.Description) ||
-                string.IsNullOrEmpty(MovieInfo.GenreId) ||
+              
                 string.IsNullOrEmpty(MovieInfo.ReleaseYear))
             {
                 Message = "Cac thong tin can phai duoc dien nhe.";
@@ -51,7 +51,7 @@ namespace FilmManagementWeb.Pages.Movies
                         command.Parameters.AddWithValue("@Title", MovieInfo.Title);
                         command.Parameters.AddWithValue("@Description", MovieInfo.Description);
                         command.Parameters.AddWithValue("@ReleaseYear", MovieInfo.ReleaseYear);
-                        command.Parameters.AddWithValue("@GenreId", MovieInfo.GenreId);
+                        
                         command.Parameters.AddWithValue("@ImageUrl", MovieInfo.ImageUrl);
                         int result = command.ExecuteNonQuery();
                         if (result > 0)
@@ -75,7 +75,7 @@ namespace FilmManagementWeb.Pages.Movies
             MovieInfo.Title = "";
             MovieInfo.Description = "";
             MovieInfo.ReleaseYear = "";
-            MovieInfo.GenreId = "";
+            
             MovieInfo.ImageUrl = "";
         }
     }

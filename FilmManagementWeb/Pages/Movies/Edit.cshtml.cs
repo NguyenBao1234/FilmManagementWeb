@@ -36,7 +36,7 @@ namespace FilmManagementWeb.Pages.Movies
                                 MovieInfo.Title = reader.GetString(1);
                                 MovieInfo.Description = reader.GetString(2);
                                 MovieInfo.ReleaseYear = reader.GetValue(3)?.ToString() ?? "";
-                                MovieInfo.GenreId = reader.GetValue(4)?.ToString() ?? "";
+                                
                                 MovieInfo.ImageUrl = !reader.IsDBNull(5)
                                     ? reader.GetString(5)
                                     : "https://www.freeiconspng.com/uploads/no-image-icon-13.png";
@@ -63,12 +63,12 @@ namespace FilmManagementWeb.Pages.Movies
             MovieInfo.Title = Request.Form["Title"].ToString() ?? string.Empty;
             MovieInfo.Description = Request.Form["Description"].ToString() ?? string.Empty;
             MovieInfo.ReleaseYear = Request.Form["ReleaseYear"].ToString() ?? string.Empty;
-            MovieInfo.GenreId = Request.Form["GenreId"].ToString() ?? string.Empty;
+            
             MovieInfo.ImageUrl = Request.Form["ImageUrl"].ToString() ?? string.Empty;
 
             if (string.IsNullOrEmpty(MovieInfo.Title) ||
                 string.IsNullOrEmpty(MovieInfo.Description) ||
-                string.IsNullOrEmpty(MovieInfo.GenreId) ||
+               
                 string.IsNullOrEmpty(MovieInfo.ReleaseYear))
             {
                 Message = "Cac thong tin can phai duoc dien nhe.";
@@ -83,14 +83,14 @@ namespace FilmManagementWeb.Pages.Movies
                     connection.Open();
                     string sql = "Update Movies " +
                         "Set Title = @Title, Description = @Description, ReleaseYear = @ReleaseYear, " +
-                        "GenreId = @GenreId, ImageUrl = @ImageUrl " +
+                        " ImageUrl = @ImageUrl " +
                         "Where MovieId = @MovieId";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         command.Parameters.AddWithValue("@Title", MovieInfo.Title);
                         command.Parameters.AddWithValue("@Description", MovieInfo.Description);
                         command.Parameters.AddWithValue("@ReleaseYear", MovieInfo.ReleaseYear);
-                        command.Parameters.AddWithValue("@GenreId", MovieInfo.GenreId);
+                        
                         command.Parameters.AddWithValue("@ImageUrl", MovieInfo.ImageUrl);
                         command.Parameters.AddWithValue("@MovieId", MovieInfo.MovieId);
                         int result = command.ExecuteNonQuery();
