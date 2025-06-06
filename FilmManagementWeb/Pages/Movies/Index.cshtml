@@ -20,14 +20,13 @@
     
 </div>
 
-    <table class="table table-dark table-hover text-light align-middle">
+    <table class="table table-dark table-hover text-light align-center">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Poster</th>
                 <th>Tên phim</th>
                 <th>Năm</th>
-               
                 <th>Thể loại</th>
                 <th>Đánh giá</th>
                 <th>Tùy chọn thao tác </th>
@@ -61,7 +60,6 @@
                     <td>
                         <a class="btn btn-info btn-sm" asp-page="Edit" asp-route-id="@movie.MovieId">Sửa</a>
                         <a class="btn btn-info btn-sm" asp-page="GenreID_Edit" asp-route-id="@movie.MovieId">Chỉnh sửa thể loại</a>
-						<a class="btn btn-secondary btn-sm" asp-page="Details" asp-route-id="@movie.MovieId">Chi tiết</a>
                         <a class="btn btn-danger btn-sm" asp-page="Delete" asp-route-id="@movie.MovieId">Xóa</a>
                     
 
