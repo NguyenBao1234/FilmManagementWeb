@@ -17,7 +17,6 @@ public class Register : PageModel
 
     [BindProperty]
     public InputModel Input { get; set; }
-    public string Message { get; set; }
 
     public class InputModel
     {
@@ -37,26 +36,22 @@ public class Register : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
-        if (ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
-            var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
-            var result = await _userManager.CreateAsync(user, Input.Password);
+            var errors = ModelState.Where(kvp => kvp.Value.Errors.Count > 0).ToDictionary(
+                kvp => kvp.Key,
+                kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+            );
 
-            if (result.Succeeded)
-            {
-                Message = "Đăng ký thành công!";
-                // du dinh them "Pending"
-                return RedirectToPage("Login");
-            }
-            else
-            {
-                Message = "Error: " + string.Join(", ", result.Errors);
-            }
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
+            return new JsonResult(new { success = false, errors });
         }
-        return Page();
+        var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+        var result = await _userManager.CreateAsync(user, Input.Password);
+        
+        if (result.Succeeded)
+        {
+            return new JsonResult(new { success = true, redirectUrl = Url.Page("/Account/Login") });
+        }
+        return new JsonResult(new { success = false });
     }
 }
