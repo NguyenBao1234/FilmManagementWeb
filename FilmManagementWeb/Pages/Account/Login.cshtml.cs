@@ -24,7 +24,8 @@ public class Login : PageModel
         [StringLength(100, MinimumLength = 6,ErrorMessage = "{0} phải có ít nhất {2} ký tự và có chỉ có thể dài tối đa {1} ký tự.")]
         [DataType(DataType.Password)]
         [Display(Name = "Mật khẩu")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{6,100}$")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{6,100}$",
+            ErrorMessage = "Mật khẩu phải chứa ít nhất 1 chữ thường, 1 chữ hoa, 1 chữ số, 1 ký tự đặc biệt và dài từ 6 đến 100 ký tự.")]
         public string Password { get; set; }
 
         //property Remember me
@@ -45,7 +46,7 @@ public class Login : PageModel
             return new JsonResult(new { success = false, errors });
         }
 
-        var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, true);
+        var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, false);
     
         if (result.Succeeded)
         {
@@ -58,5 +59,6 @@ public class Login : PageModel
         }
 
         return new JsonResult(new { success = false, message = "Sai tài khoản hoặc mật khẩu." });
+        
     }
 }

@@ -7,7 +7,7 @@
 }
 <head>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
-
+    <title>@ViewData["Title"] - FilmManagementWeb</title>
 </head>
 
 <div class="position-relative d-flex justify-content-center align-items-center vh-100 overflow-hidden">
@@ -36,10 +36,12 @@
                 <label asp-for="Input.Password">Mật khẩu</label>
                 <span id="passwordValidation" class="text-danger"></span>
             </div>
+            
             <div>
                 <input asp-for="Input.RememberMe" class="form-check-input" />
                 <label>Ghi nhớ đăng nhập</label>
             </div>
+            
             <div class="d-flex justify-content-between align-items-center gap-2 mt-4">
                 <!-- Back -->
                 <button type="button" onclick="history.back()" class="btn btn-outline-dark btn-lg w-50">
@@ -50,6 +52,13 @@
                     Đăng nập
                 </button>
             </div>
+
+            <div class="d-flex justify-content-center mt-3">
+                <button type="button" class="btn btn-link" onclick="window.location.href='./Register'">Đăng ký</button>
+                <div class="vr mx-2"></div>
+                <button type="button" class="btn btn-link" onclick="window.location.href='./ForgotPassword'">Quên mật khẩu?</button>
+            </div>
+            
         </form>
     </div>
 </div>
@@ -73,12 +82,18 @@
             alertMessage.textContent = result.message;
             alertMessage.classList.remove("d-none");
         }
-
-        if (result.errors) {
+        if (result.errors)
+        {
             if (result.errors["Input.Email"]) document.getElementById("emailValidation").textContent = result.errors["Input.Email"][0];
+            else  document.getElementById("emailValidation").textContent = "";
             if (result.errors["Input.Password"]) document.getElementById("passwordValidation").textContent = result.errors["Input.Password"][0];
+            else  document.getElementById("passwordValidation").textContent = "";
         }
-        
+        else
+        {
+            document.getElementById("emailValidation").textContent = "";
+            document.getElementById("passwordValidation").textContent = "";
+        }
     });
 </script>
 

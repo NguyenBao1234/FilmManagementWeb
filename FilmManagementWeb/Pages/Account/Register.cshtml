@@ -7,7 +7,7 @@
 }
 <head>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
-
+    <title>@ViewData["Title"] - FilmManagementWeb</title>
 </head>
 
 <div class="position-relative d-flex justify-content-center align-items-center vh-100 overflow-hidden">
@@ -50,6 +50,10 @@
                 <button type="submit" class="btn btn-dark btn-lg w-50">
                     Đăng ký
                 </button>
+            </div>
+
+            <div class="d-flex justify-content-center mt-3">
+            <button type="button" class="btn btn-link" onclick="window.location.href='./Login'">Đăng Nhập</button>
             </div>
         </form>
     </div>
