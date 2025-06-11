@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using FilmManagementWeb.Data;
 
+AppContext.SetSwitch("Switch.Microsoft.Data.SqlClient.DisableConnectionPoolPerformanceCounters", true);
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

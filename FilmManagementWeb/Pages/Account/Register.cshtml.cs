@@ -27,7 +27,8 @@ public class Register : PageModel
         [StringLength(100, MinimumLength = 6, ErrorMessage = "{0} phải có ít nhất {2} ký tự và có chỉ có thể dài tối đa {1} ký tự.")]
         [DataType(DataType.Password)]
         [Display(Name = "Mật khẩu")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{6,100}$")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{6,100}$",
+            ErrorMessage = "Mật khẩu phải chứa ít nhất 1 chữ thường, 1 chữ hoa, 1 chữ số, 1 ký tự đặc biệt và dài từ 6 đến 100 ký tự.")]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Nhập lại Mật khẩu là bắt buộc."), Compare("Password",ErrorMessage = "Mật khẩu xác nhận không khớp."), DataType(DataType.Password)]
@@ -50,6 +51,10 @@ public class Register : PageModel
         
         if (result.Succeeded)
         {
+            //confirm email manually
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            await _userManager.ConfirmEmailAsync(user, token);
+            
             return new JsonResult(new { success = true, redirectUrl = Url.Page("/Account/Login") });
         }
         return new JsonResult(new { success = false });
