@@ -1,0 +1,144 @@
+@page
+@model FilmManagementWeb.Pages.Identity.Account.Login
+
+@{
+    ViewData["Title"] = "Đăng Nhập";
+    Layout = null;
+}
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <title>@ViewData["Title"] - FilmManagementWeb</title>
+</head>
+
+<div class="position-relative d-flex justify-content-center align-items-center vh-100 overflow-hidden">
+    @* Youtube Video BG *@
+    <div class="position-absolute top-0 start-0 w-100 h-100" style="z-index: 0; pointer-events: none; overflow: hidden;">
+        <div id="yt-bg" style="width: 100vw; height: 56.25vw;"></div>
+    </div>
+    
+    <div class="position-absolute top-0 start-0 w-100 h-100" id="overlayYTB" style="z-index: 1;transition: opacity 2s ease;opacity: 1;pointer-events: none;overflow: hidden;">
+        <img src="/image/FamousFilms.jpg"alt="Ảnh phủ"style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+    </div>
+    <div class="card shadow-lg p-4" style="max-width: 680px; width: 100%; border-radius: 1rem; background-color: rgba(255,255,255,0.9);z-index: 1">
+        <h1 class="text-center mb-4">Đăng nhập</h1>
+        
+        <div id="messageAlert" class = "alert alert-danger d-none">@Model.Message</div>    
+        
+        <form id="loginForm" method="post">
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Email" class="form-control" autocomplete="off" aria-required="false" placeholder="name@example.com"/>
+                <label asp-for="Input.Email">Email</label>
+                <span id="emailValidation" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Password" class="form-control" autocomplete="off" aria-required="true" placeholder="Mật khẩu"/>
+                <label asp-for="Input.Password">Mật khẩu</label>
+                <span id="passwordValidation" class="text-danger"></span>
+            </div>
+            
+            <div>
+                <input asp-for="Input.RememberMe" class="form-check-input" />
+                <label>Ghi nhớ đăng nhập</label>
+            </div>
+            
+            <div class="d-flex justify-content-between align-items-center gap-2 mt-4">
+                <!-- Back -->
+                <button type="button" onclick="history.back()" class="btn btn-outline-dark btn-lg w-50">
+                    ← Back
+                </button>
+                @* Login *@
+                <button type="submit" class="btn btn-dark btn-lg w-50">
+                    Đăng nập
+                </button>
+            </div>
+
+            <div class="d-flex justify-content-center mt-3">
+                <button type="button" class="btn btn-link" onclick="window.location.href='./Register'">Đăng ký</button>
+                <div class="vr mx-2"></div>
+                <button type="button" class="btn btn-link" onclick="window.location.href='./ForgotPassword'">Quên mật khẩu?</button>
+            </div>
+            
+        </form>
+    </div>
+</div>
+
+<script>
+    document.getElementById("loginForm").addEventListener("submit", async function (e) 
+    {
+        e.preventDefault(); // Ngăn reload trang
+        
+        const form = e.target;
+        const formData = new FormData(form);
+
+        const response = await fetch(form.action, {method: "POST",body: formData});
+//lấy lệnh thủ công.
+        const result = await response.json();
+        const alertMessage = document.getElementById("messageAlert");
+        alertMessage.classList.add("d-none");
+        if (result.success) window.location.href = result.redirectUrl;
+        else if (result.message && result.message.trim() !== "")
+        {
+            alertMessage.textContent = result.message;
+            alertMessage.classList.remove("d-none");
+        }
+        if (result.errors)
+        {
+            if (result.errors["Input.Email"]) document.getElementById("emailValidation").textContent = result.errors["Input.Email"][0];
+            else  document.getElementById("emailValidation").textContent = "";
+            if (result.errors["Input.Password"]) document.getElementById("passwordValidation").textContent = result.errors["Input.Password"][0];
+            else  document.getElementById("passwordValidation").textContent = "";
+        }
+        else
+        {
+            document.getElementById("emailValidation").textContent = "";
+            document.getElementById("passwordValidation").textContent = "";
+        }
+    });
+</script>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+    let player;
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('yt-bg', {
+            videoId: 'GNs5XLIHYvU',
+            playerVars: {
+                autoplay: 1,
+                mute: 1,
+                loop: 1,
+                playlist: 'GNs5XLIHYvU',
+                controls: 0,
+                modestbranding: 1,
+                showinfo: 0,
+                rel: 0
+            },
+            events: {
+                'onStateChange': onStateChangeYTBPlayer
+            }
+        });
+    }
+    //The YT variable is the primary object of the YouTube IFrame Player API. It is only available after the API has been fully loaded.
+    function onStateChangeYTBPlayer(event) {
+        if (event.data === YT.PlayerState.PLAYING) {
+            const overlay = document.getElementById('overlayYTB');
+            
+            setTimeout(() => { overlay.style.opacity = "0";},3000);
+        }
+    }
+
+
+    // completely reload the web page from scratch if load from "back from cache"
+    window.addEventListener('pageshow', function (event) {
+        if (event.persisted) { // true = has just been restored from bfcache
+            window.location.reload();
+        }
+    });
+
+    // Nếu API đã có sẵn trong DOM thì gọi lại
+    document.addEventListener("DOMContentLoaded", () => {
+        if (typeof YT === "object" && typeof YT.Player === "function") {
+            onYouTubeIframeAPIReady();
+        }
+    });
+</script>

@@ -1,0 +1,65 @@
+﻿@page
+@model FilmManagementWeb.Pages.Movies.CreateModel
+@{
+}
+<br />
+<h2>Create New Movie</h2>
+@if(Model.Message.Length>0)
+{
+	<div>
+		<div class="alert alert-success">
+			@Model.Message
+		</div>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+			
+		</button>
+	</div>
+}
+<form method="post">
+    <div class="row mb-3">
+
+    </div>
+   
+    <div class="row mb-3">
+        <label class="col-sm3 col-form-label">Title</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="Title"
+                   value="@Model.MovieInfo.Title">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm3 col-form-label">Description</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="Description"
+                   value="@Model.MovieInfo.Description">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm3 col-form-label">Năm ra mắt</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="ReleaseYear"
+                   value="@Model.MovieInfo.ReleaseYear">
+        </div>
+    </div>
+ 
+    <div class="row mb-3">
+        <label class="col-sm3 col-form-label">ImageUrl</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="ImageUrl"
+                   value="@Model.MovieInfo.ImageUrl">
+        </div>
+    </div>
+    @*button submit và cancel*@ 
+    <div class="row mb-3">
+        <div class="col-sm-3 d-grid">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        <div class="col-sm-3 d-grid">
+            <a class="btn btn-outline-primary" href="/Movies" role="button">Cancel</a>
+            @*Cancel thì trở về trang /Movies/index*@ 
+        </div>
+    </div>
+
+</form> 
