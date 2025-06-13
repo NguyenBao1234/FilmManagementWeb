@@ -20,15 +20,15 @@
     
 </div>
 
-    <table class="table table-dark table-hover text-light align-center">
+<table class="table table-dark table-hover text-light table-striped table-bordered align-middle">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Poster</th>
                 <th>Tên phim</th>
                 <th>Năm</th>
-                <th>Thể loại</th>
-                <th>Đánh giá</th>
+                <th>Thể loại phim</th>
+                <th>Đánh giá phim</th>
                 <th>Tùy chọn thao tác </th>
             </tr>
         </thead>
@@ -49,18 +49,16 @@
                     }
                     else
                     {
-                        <span class="text-muted">Không có thể loại</span>
+                        <span class="text-muted">Chưa có thể loại</span>
                     }
                 </td>
-
-                    <td></td>
                     <td>
                         <span class="text-warning fw-bold">5★</span> 
                     </td>
                     <td>
-                        <a class="btn btn-info btn-sm" asp-page="Edit" asp-route-id="@movie.MovieId">Sửa</a>
-                        <a class="btn btn-info btn-sm" asp-page="GenreID_Edit" asp-route-id="@movie.MovieId">Chỉnh sửa thể loại</a>
-                        <a class="btn btn-danger btn-sm" asp-page="Delete" asp-route-id="@movie.MovieId">Xóa</a>
+                        <a class="btn btn-info " asp-page="Edit" asp-route-id="@movie.MovieId">Sửa</a>
+                        <a class="btn btn-secondary" asp-page="GenreID_Edit" asp-route-id="@movie.MovieId">Chỉnh sửa thể loại</a>
+                        <a class="btn btn-danger" asp-page="Delete" asp-route-id="@movie.MovieId">Xóa</a>
                     
 
                         

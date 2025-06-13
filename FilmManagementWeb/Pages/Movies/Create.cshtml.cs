@@ -43,8 +43,8 @@ namespace FilmManagementWeb.Pages.Movies
                 {
                     connection.Open();
                     string sql = "Insert into Movies" +
-                        "(Title, Description, ReleaseYear, GenreId, ImageUrl) " +
-                        "Values(@Title, @Description, @ReleaseYear, @GenreId, @ImageUrl)";
+                        "(Title, Description, ReleaseYear, ImageUrl) " +
+                        "Values(@Title, @Description, @ReleaseYear, @ImageUrl)";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {

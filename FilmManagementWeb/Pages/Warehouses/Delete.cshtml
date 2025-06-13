@@ -1,0 +1,26 @@
+﻿@page "{id:int}"
+@model FilmManagementWeb.Pages.Warehouses.DeleteModel
+@{
+    ViewData["Title"] = "Xóa kho";
+}
+
+<div class="container py-4">
+    <h2>Xác nhận xóa kho</h2>
+
+    @if (!string.IsNullOrEmpty(Model.Message))
+    {
+        <div class="alert alert-danger">@Model.Message</div>
+    }
+    else
+    {
+        <div class="mb-3">
+            <strong>Bạn có chắc chắn muốn xóa kho:</strong>
+            <span class="text-danger">@Model.Location</span> (ID: @Model.WarehouseId)?
+        </div>
+        <form method="post">
+            <input type="hidden" asp-for="WarehouseId" />
+            <button type="submit" class="btn btn-danger">Xóa</button>
+            <a href="/Warehouses" class="btn btn-secondary">Hủy</a>
+        </form>
+    }
+</div>
