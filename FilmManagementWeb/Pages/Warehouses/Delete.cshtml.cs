@@ -61,7 +61,7 @@ namespace FilmManagementWeb.Pages.Warehouses
             }
             catch (Exception ex)
             {
-                Message = "Lỗi khi xóa kho: " + ex.Message;
+                Message = "Lỗi khi xóa kho : " + ex.Message;
                 return Page();
             }
 
