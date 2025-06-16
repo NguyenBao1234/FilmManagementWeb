@@ -1,0 +1,70 @@
+﻿@page
+@model FilmManagementWeb.Pages.Genres.IndexModel
+@{
+    ViewData["Title"] = "Quản lý Thể loại";
+}
+
+<div class="container mt-4">
+    <div class="row mb-3 align-items-center">
+        <div class="col-md-6">
+            <h2 class="mb-0 text-primary">Danh Sách Thể Loại</h2>
+        </div>
+        <div class="col-md-6 text-md-end">
+            <a class="btn btn-success" href="/Genres/Create">
+                <i class="bi bi-plus-circle me-1"></i> Thêm Thể Loại
+            </a>
+        </div>
+    </div>
+
+    @if (Model.ListGenre != null && Model.ListGenre.Count > 0)
+    {
+        <div class="table-responsive">
+            @* Thêm lớp table-sm để làm cho bảng gọn hơn *@
+            <table class="table table-bordered table-striped table-hover text-center align-middle table-sm">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Tên Thể Loại</th>
+                        <th>Mã Thể Loại</th>
+                        <th>Ảnh</th>
+                        <th>Hành Động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ListGenre)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.GenreId</td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.ImageUrl))
+                                {
+                                    <img src="@item.ImageUrl" alt="Ảnh @item.Name" class="img-thumbnail" style="max-width: 80px; height: auto;" />
+                                }
+                                else
+                                {
+                                    <span>Không có ảnh</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="btn-group btn-group-sm" role="group" aria-label="Hành động">
+                                    <a class="btn btn-primary" href="/Genres/Edit?id=@item.GenreId">
+                                        <i class="bi bi-pencil-square"></i> Sửa
+                                    </a>
+                                    <a class="btn btn-danger" href="/Genres/Delete?id=@item.GenreId">
+                                        <i class="bi bi-trash"></i> Xóa
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center" role="alert">
+            <p class="mb-0">Không có thể loại nào được tìm thấy. Hãy thêm một thể loại mới!</p>
+        </div>
+    }
+</div>

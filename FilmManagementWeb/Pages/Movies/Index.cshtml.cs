@@ -15,7 +15,7 @@ namespace FilmManagementWeb.Pages.Movies
         {
             try
             {
-                string connectionString = "Data Source=localhost;Initial Catalog=WebFilmDB;Integrated Security=True;TrustServerCertificate=True";
+                string connectionString = "Data Source=localhost\\sqlexpress;Initial Catalog=WebFilmDB;Integrated Security=True;TrustServerCertificate=True";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
@@ -41,7 +41,7 @@ namespace FilmManagementWeb.Pages.Movies
                                     Description = reader.GetString(2),
                                     ReleaseYear = reader.GetValue(3)?.ToString(),
                                     ImageUrl = !reader.IsDBNull(4) ? reader.GetString(4) : "https://www.freeiconspng.com/uploads/no-image-icon-13.png",
-                                    GenreId = reader.GetValue(5)?.ToString()
+                                    
                                 };
                                 ListMovies.Add(movieInfo);
                             }
