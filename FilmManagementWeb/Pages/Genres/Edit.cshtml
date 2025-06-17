@@ -1,0 +1,40 @@
+﻿@page
+@model FilmManagementWeb.Pages.Genres.EditModel
+@{
+}
+<br />
+<h2> Sửa Thể Loại</h2>
+@if (Model.errorMessage.Length > 0)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@Model.errorMessage</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" arialabel="Close"></button>
+    </div>
+}
+<form method="post">
+    <input type="hidden" name="GenreId" value="@Model.genreInfo.GenreId" />
+    <div class=" row mb-3">
+        <label class="col-sm-3 col-form-label">Tên</label>
+        <div class=" col-sm-6">
+            <input type="text" class=" form-control" name="Name"
+                   value="@Model.genreInfo.Name">
+        </div>
+    </div>
+    <div class=" row mb-3">
+        <label class="col-sm-3 col-form-label">Link Ảnh</label>
+        <div class=" col-sm-6">
+            <input type="text" class=" form-control" name="ImageUrl"
+                   value="@Model.genreInfo.ImageUrl">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-sm-3 d-grid">
+            <button type="submit" class="btn btn-primary">Chấp Nhận</button>
+        </div>
+        <div class="col-sm-3 d-grid">
+            <a class="btn btn-outline-primary" href="/Genres" role="button">Hủy Bỏ</a>
+        </div>
+    </div>
+
+</form>
+
