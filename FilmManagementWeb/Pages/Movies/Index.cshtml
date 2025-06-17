@@ -20,46 +20,53 @@
     
 </div>
 
-<table class="table table-dark table-hover text-light align-center">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Poster</th>
-        <th>Tên phim</th>
-        <th>Năm</th>
-        <th>Thể loại</th>
-        <th>Đánh giá</th>
-        <th>Tùy chọn thao tác </th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var movie in Model.ListMovies)
-           {
-               <tr>
-                   <td>@movie.MovieId</td>
-                   <td>
-                       <img src="@movie.ImageUrl" alt="poster" style="width: 50px; height: 70px; object-fit: cover;" />
-                   </td>
-                   <td class="fw-bold">@movie.Title</td>
-                   <td>@movie.ReleaseYear</td><td>@if (movie.GenreNames != null && movie.GenreNames.Count > 0)
-                   {
-                       @string.Join(", ", movie.GenreNames)
-                   }
-                   else
-                   {
-                       <span class="text-muted">Không có thể loại</span>
-                   }</td>
-                   <td>
-                       <span class="text-warning fw-bold">5★</span> 
-                   </td>
-                   <td>
-                       <a class="btn btn-info btn-sm" asp-page="Edit" asp-route-id="@movie.MovieId">Sửa</a>
-                       <a class="btn btn-info btn-sm" asp-page="GenreID_Edit" asp-route-id="@movie.MovieId">Chỉnh sửa thể loại</a>
-                       <a class="btn btn-danger btn-sm" asp-page="Delete" asp-route-id="@movie.MovieId">Xóa</a>
-                       
-                       
-                   </td>
-               </tr>
-           }
-    </tbody>
-</table>
+<table class="table table-dark table-hover text-light table-striped table-bordered align-middle">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Poster</th>
+                <th>Tên phim</th>
+                <th>Năm</th>
+                <th>Thể loại phim</th>
+                <th>Đánh giá phim</th>
+                <th>Tùy chọn thao tác </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var movie in Model.ListMovies)
+            {
+                <tr>
+                    <td>@movie.MovieId</td>
+                    <td>
+                        <img src="@movie.ImageUrl" alt="poster" style="width: 50px; height: 70px; object-fit: cover;" />
+                    </td>
+                    <td class="fw-bold">@movie.Title</td>
+                    <td>@movie.ReleaseYear</td>
+                <td>
+                    @if (movie.GenreNames != null && movie.GenreNames.Count > 0)
+                    {
+                        @string.Join(", ", movie.GenreNames)
+                    }
+                    else
+                    {
+                        <span class="text-muted">Chưa có thể loại</span>
+                    }
+                </td>
+                    <td>
+                        <span class="text-warning fw-bold">5★</span> 
+                    </td>
+                    <td>
+                        <a class="btn btn-info " asp-page="Edit" asp-route-id="@movie.MovieId">Sửa</a>
+                        <a class="btn btn-secondary" asp-page="GenreID_Edit" asp-route-id="@movie.MovieId">Chỉnh sửa thể loại</a>
+                    <a class="btn btn-secondary" asp-page="Warehouses_Edit" asp-route-id="@movie.MovieId">Chỉnh sửa nguồn phim</a>
+                        <a class="btn btn-danger" asp-page="Delete" asp-route-id="@movie.MovieId">Xóa</a>
+                    
+
+                        
+                        
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

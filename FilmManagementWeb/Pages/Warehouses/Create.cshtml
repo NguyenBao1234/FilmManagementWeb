@@ -1,0 +1,37 @@
+﻿@page
+@model FilmManagementWeb.Pages.Warehouses.CreateModel
+@{
+}
+<br />
+<h2>Thêm kho mới</h2>
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div>
+        <div class="alert alert-success">
+            @Model.Message
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+<form method="post">
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Tên kho</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="Warehouse.Location" value="@Model.Warehouse.Location" />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Số lượng</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="Warehouse.Capacity" value="@Model.Warehouse.Capacity" />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-sm-3 d-grid">
+            <button type="submit" class="btn btn-primary">Thêm</button>
+        </div>
+        <div class="col-sm-3 d-grid">
+            <a class="btn btn-outline-primary" href="/Warehouses" role="button">Hủy</a>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,30 @@
+﻿@page
+@model FilmManagementWeb.Pages.Movies.Warehouses_EditModel
+@{
+}
+
+<h2>Chỉnh sửa kho cho phim @Model.MovieId</h2>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert alert-success">@Model.Message</div>
+}
+
+<form method="post">
+    <input type="hidden" asp-for="MovieId" />
+    <div class="mb-3">
+        @foreach (var warehouse in Model.AllWarehouses)
+        {
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"
+                       name="SelectedWarehouseIds" value="@warehouse.WarehouseId"
+                @(Model.SelectedWarehouseIds.Contains(warehouse.WarehouseId) ? "checked" : "") />
+                <label class="form-check-label">
+                    @warehouse.Location (@warehouse.Capacity)
+                </label>
+            </div>
+        }
+    </div>
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    <a href="/Movies" class="btn btn-secondary">Hủy</a>
+</form>

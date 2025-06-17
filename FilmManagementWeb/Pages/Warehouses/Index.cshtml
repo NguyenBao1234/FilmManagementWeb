@@ -1,0 +1,39 @@
+﻿@page
+@model FilmManagementWeb.Pages.Warehouses.IndexModel
+@{
+    ViewData["Title"] = "Danh sách kho";
+}
+
+<div class="container py-4">
+    <h2 class="mb-4">Danh sách kho</h2>
+    <table class="table table-dark table-hover text-light table-striped table-bordered align-middle">
+        <thead>
+            <p>
+                <a class="btn btn-primary" asp-page="Create">➕ Thêm kho nguồn</a>
+            </p>
+            <tr>
+                <th>ID</th>
+                <th>Tên kho</th>
+                <th>Số lượng phim</th>
+				<th>Tùy chọn thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var warehouse in Model.Warehouses)
+            {
+                <tr>
+                    <td>@warehouse.WarehouseId</td>
+                    <td>@warehouse.Location</td>
+                    <td>@warehouse.Capacity</td>
+                    <td>
+                        <a class="btn btn-info " asp-page="Edit" asp-route-id="@warehouse.WarehouseId">Sửa</a>
+                        <a class="btn btn-secondary" asp-page="GenreID_Edit" asp-route-id="@warehouse.WarehouseId">Chỉnh sửa thể loại</a>
+                        <a class="btn btn-danger" asp-page="Delete" asp-route-id="@warehouse.WarehouseId">Xóa</a>
+                    </td>
+                </tr>
+           
+            }
+            
+        </tbody>
+    </table>
+</div>
