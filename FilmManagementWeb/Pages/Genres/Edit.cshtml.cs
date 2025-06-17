@@ -13,7 +13,7 @@ namespace FilmManagementWeb.Pages.Genres
             String id = Request.Query["id"];
             try
             {
-                string connectionString = "Data Source = localhost\\sqlexpress; Initial Catalog = WebFilmDB;" + "Integrated Security = True; Pooling = False; TrustServerCertificate = True";
+                string connectionString = "Data Source = localhost; Initial Catalog = WebFilmDB;" + "Integrated Security = True; Pooling = False; TrustServerCertificate = True";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
