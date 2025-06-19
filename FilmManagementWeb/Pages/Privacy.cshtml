@@ -1,8 +1,19 @@
 ﻿@page
+@using System.Security.Claims
 @model PrivacyModel
 @{
     ViewData["Title"] = "Privacy Policy";
 }
 <h1>@ViewData["Title"]</h1>
+
+@{
+    var isAdmin = User.IsInRole("Admin");
+    var name = User.Identity.Name;
+    var roles = string.Join(", ", User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value));
+}
+
+<p>Tài khoản: @name</p>
+<p>Các Role: @roles</p>
+<p>IsInRole("Admin") = @isAdmin</p>
 
 <p>HIHIHIH</p>

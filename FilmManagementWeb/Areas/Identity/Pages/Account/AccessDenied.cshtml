@@ -1,0 +1,15 @@
+@page
+@{
+    ViewData["Title"] = "Truy Cập Bị Từ Chối";
+}
+<div class="position-relative d-flex justify-content-center align-items-center vh-100 overflow-hidden"
+     xmlns="http://www.w3.org/1999/html">
+    @* Youtube Video BG *@
+    <div class="position-absolute top-0 start-0 w-100 h-100" id="overlayYTB" style="z-index: -1;transition: opacity 2s ease;opacity: 1;pointer-events: none;overflow: hidden;">
+        <img src="/image/AccessDenied.jpg"alt="Ảnh phủ"style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+    </div>
+    <div class="text-center">
+        <h1 class="text-danger">@ViewData["Title"]</h1>
+        <p class="text-danger">You do not have access to this resource.</p>
+    </div>
+</div>

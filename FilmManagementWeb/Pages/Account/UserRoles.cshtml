@@ -1,0 +1,92 @@
+@page
+@model FilmManagementWeb.Pages.Identity.Account.UserRoles
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize(Policy = "IsAdmin")]
+
+@{
+    ViewData["Title"] = "Quản lý";
+}
+@{
+    ViewData["Title"] = "Quản lý vai trò Account";
+}
+
+<style>
+    
+    .col-actions 
+    {
+             width: 380px;
+        text-align: center;
+        white-space: nowrap;
+        box-sizing: border-box;
+    }
+</style>
+
+<div class="container py-4">
+    <h2 class = mb-4> @ViewData["Title"]</h2>
+    <form method="get" class="mb-3">
+        <div class="input-group">
+            <input type="text" name="SearchTerm" value="@Model.SearchTerm" class="form-control" placeholder="Tìm kiếm tên phim..." />
+            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+        </div>
+    </form>
+</div>
+
+<table class="table table-dark table-hover text-light table-striped table-bordered align-middle">
+    <thead>
+    <tr>
+        <th>Tài khoản</th>
+        <th class = "col-actions">Vai trò</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var user in Model.Users)
+    {
+        <tr>
+            <td>@user.Email</td>
+            <td class = "col-actions">
+                <div class="dropdown">
+                    @{ var currentRoleDisplay = user.Roles != null && user.Roles.Any() ? string.Join(", ", user.Roles) : "Chưa có vai trò"; }
+                    
+                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton_@user.Id" data-bs-toggle="dropdown" aria-expanded="false">
+                        @currentRoleDisplay
+                    </button>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton_@user.Id">
+                        @* Grant Role *@
+                        @{ var assignableRoles = new List<string> { "Admin", "Staff" };}
+                        @foreach (var roleToAssign in assignableRoles)
+                        {
+                            if (user.Roles == null || !user.Roles.Contains(roleToAssign))
+                            {
+                                <li>
+                                    <form method="post" asp-page-handler="Grant" class="dropdown-item">
+                                        <input type="hidden" name="userId" value="@user.Id" />
+                                        <input type="hidden" name="role" value="@roleToAssign" />
+                                        <button type="submit" class="btn btn-link text-decoration-none p-0 w-100 text-start">Gán quyền @roleToAssign</button>
+                                    </form>
+                                </li>
+                            }
+                        }
+                        @* Remove Role *@
+                        @if (user.Roles != null && user.Roles.Any())
+                        {
+                            <li><hr class="dropdown-divider"></li>
+                            @foreach (var role in user.Roles)
+                            {
+                                <li>
+                                    <form method="post" asp-page-handler="Revoke" class="dropdown-item">
+                                        <input type="hidden" name="userId" value="@user.Id" />
+                                        <input type="hidden" name="role" value="@role" />
+                                        <button type="submit" class="btn btn-link text-danger text-decoration-none p-0 w-100 text-start">Thu hồi quyền @role</button>
+                                    </form>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

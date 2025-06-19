@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿
+@inject SignInManager<IdentityUser> SignInManager
+
+<!DOCTYPE html>
 <html lang="vi">
 <head >
     <meta charset="utf-8"/>
@@ -18,28 +21,42 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Index">Trang chủ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Chính sách</a>
-                    </li>
-                    
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Movies/Index">Kho phim</a>
-                    </li>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Trang chủ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Chính sách</a>
+                        </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Genres/Index">Thể loại</a>
-                    </li>
-                    
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Warehouses/Index">Nguồn phim</a>
-                    </li>
-                    
-                    
-                </ul>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Movies/Index">Kho phim</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Genres/Index">Thể loại</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Warehouses/Index">Nguồn phim</a>
+                        </li>
+                        @* Them condition *@
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Account/UserRoles">Account Role</a>
+                        </li>
+                        
+                    </ul>
+                }
+                else
+                {
+                    <div class="flex-grow-1 text-center">
+                        <span class="text-muted">
+                            <a asp-area="" asp-page="/Account/Login" class="text-decoration-none">Đăng nhập</a> để sử dụng các tính năng
+                        </span>
+                    </div>
+                }
                 <partial name="_LoginPartial"/>
             </div>
         </div>
