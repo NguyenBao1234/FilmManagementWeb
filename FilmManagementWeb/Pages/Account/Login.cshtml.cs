@@ -46,7 +46,7 @@ public class Login : PageModel
             return new JsonResult(new { success = false, errors });
         }
 
-        var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, false);
+        var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, true);
     
         if (result.Succeeded)
         {
