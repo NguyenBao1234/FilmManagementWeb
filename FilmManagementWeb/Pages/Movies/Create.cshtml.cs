@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FilmManagementWeb.Pages.Movies
 {
+    [Authorize(Policy = "IsStaff")]
     public class CreateModel : PageModel
     {
         public MoviesInfo MovieInfo = new MoviesInfo();

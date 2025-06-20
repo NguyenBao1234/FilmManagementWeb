@@ -1,6 +1,8 @@
 ﻿@page
 @using System.Data.SqlClient;
+@using Microsoft.AspNetCore.Authorization
 
+@attribute [Authorize(Policy = "IsStaff")]
 @{
     string GenreId = Request.Query["id"];
     if (!string.IsNullOrEmpty(GenreId))

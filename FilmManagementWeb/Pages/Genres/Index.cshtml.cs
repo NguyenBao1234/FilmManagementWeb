@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
 using System.Linq.Expressions;
+using Microsoft.AspNetCore.Authorization;
+
 namespace FilmManagementWeb.Pages.Genres
 {
+    [Authorize(Policy = "IsStaff")]
     public class IndexModel : PageModel
     {
         public List<GenreInfo> ListGenre = new List<GenreInfo>();

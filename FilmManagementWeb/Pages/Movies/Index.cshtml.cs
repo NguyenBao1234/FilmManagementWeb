@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data.SqlClient;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FilmManagementWeb.Pages.Movies
 {
+    [Authorize(Policy = "IsStaff")]
     public class IndexModel : PageModel
     {
         public List<MoviesInfo> ListMovies { get; set; } = new List<MoviesInfo>();
