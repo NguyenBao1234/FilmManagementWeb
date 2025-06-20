@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace FilmManagementWeb.Pages.Identity.Account;
+namespace FilmManagementWeb.Pages.Account;
 
 [Authorize(Policy = "IsAdmin")]
 public class UserRoles : PageModel
@@ -82,5 +82,20 @@ public class UserRoles : PageModel
         }
 
         return RedirectToPage();
+    }
+    
+    public async Task<IActionResult> OnPostDeleteAsync(string userId)
+    {
+        var user = await _userManager.FindByIdAsync(userId);
+        if (user == null) return NotFound();
+
+        var roles = await _userManager.GetRolesAsync(user);
+        if (roles.Contains("Admin"))
+        {
+            return Forbid();
+        }
+
+        await _userManager.DeleteAsync(user);
+        return RedirectToPage(new { SearchTerm });
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace FilmManagementWeb.Pages.Identity.Account;
+namespace FilmManagementWeb.Pages.Account;
 public class ResetPasswordFromForgot : PageModel
 {
     private readonly UserManager<IdentityUser> _userManager;

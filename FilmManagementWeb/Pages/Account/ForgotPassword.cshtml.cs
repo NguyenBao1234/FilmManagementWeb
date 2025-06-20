@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
 using Microsoft.AspNetCore.Mvc; //chu thich du lieu
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace FilmManagementWeb.Pages.Identity.Account;
+namespace FilmManagementWeb.Pages.Account;
 //page target : Gen reset password link
 public class ForgotPassword : PageModel
 {
