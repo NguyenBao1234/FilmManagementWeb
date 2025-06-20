@@ -42,10 +42,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Warehouses/Index">Nguồn phim</a>
                         </li>
-                        @* Them condition *@
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Account/UserRoles">Account Role</a>
-                        </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Account/UserRoles">Account Management</a>
+                            </li>
+                        }
                         
                     </ul>
                 }
