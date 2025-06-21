@@ -45,14 +45,11 @@
                 <td class="col-actions">
                     <div class="dropdown">
                         @{
-                            var currentRoleDisplay = user.Roles != null && user.Roles.Any()
-                                ? string.Join(", ", user.Roles)
-                                : "Chưa có vai trò";
+                            var currentRoleDisplay = user.Roles != null && user.Roles.Any() ? string.Join(", ", user.Roles) : "Chưa có vai trò";
                             var assignableRoles = new List<string> { "Admin", "Staff" };
                         }
 
-                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
-                                id="dropdownMenuButton_@user.Id" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"id="dropdownMenuButton_@user.Id" data-bs-toggle="dropdown" aria-expanded="false">
                             @currentRoleDisplay
                         </button>
 

@@ -58,16 +58,9 @@ public class UserRoles : PageModel
         var user = await _userManager.FindByIdAsync(userId);
         if (user == null) return NotFound();
 
-        if (!await _roleManager.RoleExistsAsync(role))
-        {
-            await _roleManager.CreateAsync(new IdentityRole(role));
-        }
+        if (!await _roleManager.RoleExistsAsync(role)) await _roleManager.CreateAsync(new IdentityRole(role));
 
-        if (!await _userManager.IsInRoleAsync(user, role))
-        {
-            await _userManager.AddToRoleAsync(user, role);
-        }
-
+        if (!await _userManager.IsInRoleAsync(user, role)) await _userManager.AddToRoleAsync(user, role);
         return RedirectToPage();
     }
 
@@ -76,11 +69,7 @@ public class UserRoles : PageModel
         var user = await _userManager.FindByIdAsync(userId);
         if (user == null) return NotFound();
 
-        if (await _userManager.IsInRoleAsync(user, role))
-        {
-            await _userManager.RemoveFromRoleAsync(user, role);
-        }
-
+        if (await _userManager.IsInRoleAsync(user, role)) await _userManager.RemoveFromRoleAsync(user, role);
         return RedirectToPage();
     }
     
@@ -90,11 +79,7 @@ public class UserRoles : PageModel
         if (user == null) return NotFound();
 
         var roles = await _userManager.GetRolesAsync(user);
-        if (roles.Contains("Admin"))
-        {
-            return Forbid();
-        }
-
+        if (roles.Contains("Admin")) return Forbid();
         await _userManager.DeleteAsync(user);
         return RedirectToPage(new { SearchTerm });
     }
