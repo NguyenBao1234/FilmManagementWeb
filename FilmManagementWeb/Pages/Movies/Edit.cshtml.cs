@@ -39,8 +39,8 @@ namespace FilmManagementWeb.Pages.Movies
                                 MovieInfo.Description = reader.GetString(2);
                                 MovieInfo.ReleaseYear = reader.GetValue(3)?.ToString() ?? "";
                                 
-                                MovieInfo.ImageUrl = !reader.IsDBNull(5)
-                                    ? reader.GetString(5)
+                                MovieInfo.ImageUrl = !reader.IsDBNull(4)
+                                    ? reader.GetString(4)
                                     : "https://www.freeiconspng.com/uploads/no-image-icon-13.png";
                             }
                         }

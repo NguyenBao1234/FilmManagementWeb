@@ -12,7 +12,7 @@ namespace FilmManagementWeb.Pages.Movies
         public List<MoviesInfo> ListMovies { get; set; } = new List<MoviesInfo>();
 
         [BindProperty(SupportsGet = true)]
-        public string? SearchTerm { get; set; }
+        public string SearchTerm { get; set; }
 
         public void OnGet()
         {
